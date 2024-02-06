@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 import {
-  getDownloadURL,
-  getStorage,
-  ref,
-  uploadBytesResumable,
+    getDownloadURL,
+    getStorage,
+    ref,
+    uploadBytesResumable,
 } from "firebase/storage";
 import { Alert, Button, Modal, TextInput } from "flowbite-react";
 import { useEffect, useRef, useState } from "react";
@@ -11,20 +11,21 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { app } from "../firebase";
 import {
-  deleteUserFailure,
-  deleteUserStart,
-  deleteUserSuccess,
-  signOutSuccess,
-  updateFailure,
-  updateStart,
-  updateSuccess,
+    deleteUserFailure,
+    deleteUserStart,
+    deleteUserSuccess,
+    signOutSuccess,
+    updateFailure,
+    updateStart,
+    updateSuccess,
 } from "../redux/user/user.Slice";
 
 export default function DashProfile() {
   const dispatch = useDispatch();
-  const { currentUser, error } = useSelector((state) => state.user);
+  const { currentUser, error,loading } = useSelector((state) => state.user);
   const [imageFile, setImageFile] = useState(null);
 
   const [imageFileUrl, setImageFileUrl] = useState(null);
@@ -240,9 +241,19 @@ export default function DashProfile() {
           placeholder="password"
           onChange={handleChange}
         />
-        <Button type="submit" gradientDuoTone="purpleToBlue" outline>
-          Update
+        <Button type="submit" gradientDuoTone="purpleToBlue" outline disabled={loading || imageFileUploading}>
+          {
+            loading ?'Loading...':'Update'
+          }
         </Button>
+        {
+            currentUser.isAdmin &&
+            <Link to='/create-post'>
+            <Button type="submit" gradientDuoTone="purpleToPink" className="w-full" outline>
+          Create a Post
+        </Button>
+            </Link>
+        }
       </form>
       <div className="text-red-500 flex justify-between mt-4">
         <span onClick={() => setShowModal(true)} className="cursor-pointer">

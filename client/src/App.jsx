@@ -1,8 +1,10 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import Footer from "./components/Footer"
 import Header from "./components/Header"
+import OnlyAdminPrivateRoutes from "./components/OnlyAdminPrivateRoute"
 import PrivateRoutes from "./components/PrivateRoutes"
 import About from "./pages/About"
+import CreatePost from "./pages/CreatePost"
 import DashBoard from "./pages/DashBoard"
 import Home from "./pages/Home"
 import Projects from "./pages/Projects"
@@ -20,6 +22,9 @@ export default function App() {
       <Route path="/sign-up" element={<Signup />}/>
       <Route element={<PrivateRoutes/>}>
       <Route path="/dashboard" element={<DashBoard />}/>
+      </Route>
+      <Route element={<OnlyAdminPrivateRoutes/>}>
+      <Route path="/create-post" element={<CreatePost />}/>
       </Route>
       
       <Route path="/projects" element={<Projects />}/>
