@@ -4,6 +4,7 @@ import express from "express";
 import mongoose from "mongoose";
 import AuthRoutes from './routes/auth.route.js';
 import UserRoutes from "./routes/user.route.js";
+import PostRoutes from "./routes/post.route.js"
 
 dotenv.config();
 mongoose
@@ -26,6 +27,7 @@ app.listen(5500, () => {
 
 app.use('/api/user',UserRoutes);
 app.use('/api/auth',AuthRoutes);
+app.use('/api/post',PostRoutes);
 
 
 app.use((err,req,res,next)=>{
