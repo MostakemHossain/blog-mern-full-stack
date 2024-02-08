@@ -10,6 +10,7 @@ import Home from "./pages/Home"
 import Projects from "./pages/Projects"
 import SignIn from "./pages/SignIn"
 import Signup from "./pages/Signup"
+import UpdatePost from "./pages/updatePost"
 
 export default function App() {
   return (
@@ -25,6 +26,7 @@ export default function App() {
       </Route>
       <Route element={<OnlyAdminPrivateRoutes/>}>
       <Route path="/create-post" element={<CreatePost />}/>
+      <Route path='/update-post/:postId' element={<UpdatePost />} />
       </Route>
       
       <Route path="/projects" element={<Projects />}/>
