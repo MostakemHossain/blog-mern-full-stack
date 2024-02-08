@@ -88,7 +88,7 @@ export default function SignIn() {
                   <span className='pl-3'>Loading...</span>
                 </>
               ) : (
-                'Sign Up'
+                'Sign in'
               )}
             </Button>
             <OAuth/>

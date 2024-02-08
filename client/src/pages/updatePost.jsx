@@ -26,7 +26,7 @@ export default function UpdatePost() {
     const { currentUser } = useSelector((state) => state.user);
 
   useEffect(() => {
-    console.log(postId)
+    
     try {
       const fetchPost = async () => {
         const res = await fetch(`/api/post/getposts?postId=${postId}`);
