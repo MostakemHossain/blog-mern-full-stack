@@ -35,29 +35,49 @@ export const getPostComments = async (req, res, next) => {
   }
 };
 
-export const likeComment=async(req,res,next)=>{
-  try{
-    const comment= await Comment.findById(req.params.commentId);
-    if(!comment){
-      return next(errorHandler(404,'Comment not found'));
+export const likeComment = async (req, res, next) => {
+  try {
+    const comment = await Comment.findById(req.params.commentId);
+    if (!comment) {
+      return next(errorHandler(404, "Comment not found"));
     }
 
-    const userIndex=comment.likes.indexOf(req.user.id);
-    if(userIndex===-1){
-      comment.numberOfLikes+=1;
+    const userIndex = comment.likes.indexOf(req.user.id);
+    if (userIndex === -1) {
+      comment.numberOfLikes += 1;
       comment.likes.push(req.user.id);
-    }else{
-      comment.numberOfLikes-=1;
-      comment.likes.splice(userIndex,1);
+    } else {
+      comment.numberOfLikes -= 1;
+      comment.likes.splice(userIndex, 1);
     }
     await comment.save();
     res.status(200).json(comment);
-
-
-  }catch(err){
+  } catch (err) {
     next(err);
   }
+};
 
-}
+export const editComment = async (req, res, next) => {
+  try {
+    const comment = await Comment.findById(req.params.commentId);
+    if (!comment) {
+      return next(errorHandler(404, "Comment not found"));
+    }
+    if (comment.userId !== req.user.id && !req.user.isAdmin) {
+      return next(new Error("You are not authorized to edit this comment"));
+    }
+    const editedComment = await Comment.findByIdAndUpdate(
+      req.params.commentId,
+      {
+        content: req.body.content,
+      },
+      {
+        new: true,
+      }
+    );
 
-
+    res.status(200).json(editedComment);
+  } catch (err) {
+    next(err);
+  }
+};
