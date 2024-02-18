@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { Avatar, Button, Dropdown, Navbar, TextInput } from "flowbite-react";
 import { FaMoon, FaSearch, FaSun } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
